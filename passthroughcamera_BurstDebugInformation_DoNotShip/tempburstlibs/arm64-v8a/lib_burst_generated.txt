@@ -1,0 +1,17 @@
+Library: /Users/mikhailandreev/code/workar/Unity-PassthroughCameraApiSamples/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--platform=Android
+--backend=burst-llvm-18
+--target=ARMV8A_AARCH64
+--global-safety-checks-setting=Off
+--meta-data-generation=False
+--dump=Function
+--float-precision=Standard
+--target-framework=NetFramework
+--generate-link-xml=Temp/burst.link.xml
+--temp-folder=/Users/mikhailandreev/code/workar/Unity-PassthroughCameraApiSamples/Temp/Burst
+--key-folder=/Applications/Unity/Hub/Editor/6000.1.2f1/PlaybackEngines/AndroidPlayer
+--decode-folder=/Users/mikhailandreev/code/workar/Unity-PassthroughCameraApiSamples/Library/Burst
+--output=/Users/mikhailandreev/code/workar/Unity-PassthroughCameraApiSamples/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
+--pdb-search-paths=Temp/ManagedSymbols/
+
+
