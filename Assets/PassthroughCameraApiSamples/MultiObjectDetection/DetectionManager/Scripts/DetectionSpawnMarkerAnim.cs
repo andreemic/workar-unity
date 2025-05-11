@@ -2,6 +2,7 @@
 
 using Meta.XR.Samples;
 using UnityEngine;
+using TMPro;
 
 namespace PassthroughCameraSamples.MultiObjectDetection
 {
@@ -10,7 +11,7 @@ namespace PassthroughCameraSamples.MultiObjectDetection
     {
         [SerializeField] private Vector3 m_anglesSpeed = new(20.0f, 40.0f, 60.0f);
         [SerializeField] private Transform m_model;
-        [SerializeField] private TextMesh m_textModel;
+        [SerializeField] private TextMeshPro m_textModel;
         [SerializeField] private Transform m_textEntity;
 
         private Vector3 m_angles;
@@ -24,13 +25,36 @@ namespace PassthroughCameraSamples.MultiObjectDetection
 
             m_model.rotation = Quaternion.Euler(m_angles);
 
+            // More robust camera finding logic - try each frame if not set
             if (!m_camera)
             {
                 m_camera = FindFirstObjectByType<OVRCameraRig>();
+                
+                // If still not found, try looking for it in the scene by tag or name
+                if (!m_camera)
+                {
+                    GameObject camRig = GameObject.Find("[BuildingBlock] Camera Rig");
+                    if (camRig)
+                    {
+                        m_camera = camRig.GetComponentInChildren<OVRCameraRig>();
+                    }
+                }
+            }
+
+            // Only proceed if we have a camera reference AND it has a valid centerEyeAnchor
+            if (m_camera && m_camera.centerEyeAnchor)
+            {
+                m_textEntity.transform.LookAt(m_camera.centerEyeAnchor);
+                m_textEntity.transform.Rotate(0f, 180f, 0f, Space.Self);
             }
             else
             {
-                m_textEntity.gameObject.transform.LookAt(m_camera.centerEyeAnchor);
+                // Fallback to Camera.main if OVRCameraRig isn't available
+                if (Camera.main)
+                {
+                    m_textEntity.transform.LookAt(Camera.main.transform);
+                    m_textEntity.transform.Rotate(0f, 180f, 0f, Space.Self);
+                }
             }
         }
 
